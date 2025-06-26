@@ -1,0 +1,163 @@
+{
+  "position": "top",
+  "modules-left": [
+    "niri/workspaces",
+    "custom/left-arrow-light",
+    "custom/left-arrow-dark",
+    "niri/window",
+    "custom/left-arrow-light"
+  ],
+  "modules-center": [
+    "custom/left-arrow-dark",
+    "clock#1",
+    "custom/left-arrow-light",
+    "custom/left-arrow-dark",
+    "clock#2",
+    "custom/right-arrow-dark",
+    "custom/right-arrow-light",
+    "clock#3",
+    "custom/right-arrow-dark"
+  ],
+  "modules-right": [
+    "custom/right-arrow-light",
+    "mpd",
+    "custom/right-arrow-dark",
+    "custom/right-arrow-light",
+    "tray",
+    "custom/right-arrow-dark",
+    "custom/right-arrow-light",
+    "niri/language",
+    "custom/right-arrow-dark",
+    "custom/right-arrow-light",
+    "network",
+    "custom/right-arrow-dark",
+    "custom/right-arrow-light",
+    "pulseaudio",
+    // "custom/right-arrow-dark",
+    // "custom/right-arrow-light",
+    // "memory",
+    // "custom/right-arrow-dark",
+    // "custom/right-arrow-light",
+    // "cpu",
+    // "custom/right-arrow-dark",
+    // "custom/right-arrow-light",
+    // "disk",
+    "custom/right-arrow-dark",
+    "custom/right-arrow-light",
+    "battery"
+  ],
+
+  "custom/left-arrow-dark": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/left-arrow-light": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/right-arrow-dark": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/right-arrow-light": {
+    "format": "",
+    "tooltip": false
+  },
+
+  "niri/language": {
+    "format": "{shortDescription}"
+  },
+
+  "clock#1": {
+    "format": "{:%a}",
+    "interval": 1,
+    "tooltip": false
+  },
+  "clock#2": {
+    "format": "{:%H:%M}",
+    "interval": 1,
+    "tooltip": false
+  },
+  "clock#3": {
+    "format": "{:%d.%m}",
+    "interval": 1,
+    "tooltip": false
+  },
+
+  "pulseaudio": {
+    "format": "{icon}{volume:3}%",
+    "format-bluetooth": "{icon}{volume:3}%",
+    "format-muted": "{icon}{volume:3}%",
+    "format-bluetooth-muted": "{icon}{volume:3}%",
+    "format-icons": {
+      "headphone": ["󰋋 "],
+      "headphone-muted": ["󰟎 "],
+      "default": [" "," ", " ", " "],
+      "default-muted": [" "]
+    },
+    "scroll-step": 0,
+    "on-click-right": "pamixer -t",
+    "on-click": "pavucontrol"
+  },
+  "memory": {
+    "interval": 5,
+    "format": "Mem {}%"
+  },
+  "cpu": {
+    "interval": 5,
+    "format": "CPU {usage:2}%"
+  },
+  "battery": {
+    "interval": 1,
+    "states": {
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "{icon}{capacity:3}%",
+    "format-plugged": " {capacity:3}%",
+    "format-charging": "󰂄{capacity:3}%",
+    "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
+  },
+  "disk": {
+    "interval": 5,
+    "format": "Disk {percentage_used:2}%",
+    "path": "/"
+  },
+  "network": {
+    "format-wifi": "  {signalStrength}%",
+    "format-ethernet": "  {ifname}",
+    "format-disconnected": " ",
+    "format-disabled": "󰀝 ",
+    "tooltip-format": "{essid}",
+    "max-length": 50
+  },
+  "mpd": {
+	  "format": "{stateIcon} {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S})  ",
+	  "format-disconnected": "Disconnected  ",
+	  "format-stopped": "󰝛 ",
+	  "interval": 2,
+	  "consume-icons": {
+		  "on": " " // Icon shows only when "consume" is on
+	  },
+	  "random-icons": {
+		  "off": "<span color=\"#f53c3c\"></span> ", // Icon grayed out when "random" is off
+		  "on": " "
+	  },
+	  "repeat-icons": {
+		  "on": " "
+	  },
+	  "single-icons": {
+		  "on": "1 "
+	  },
+	  "state-icons": {
+		  "paused": "",
+		  "playing": ""
+	  },
+	  "tooltip-format": "MPD (connected)",
+	  "tooltip-format-disconnected": "MPD (disconnected)"
+    },
+    "tray": {
+      "icon-size": 20
+    },
+    "on-click": "mpc toggle"
+}

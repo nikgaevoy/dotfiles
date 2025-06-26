@@ -1,0 +1,10 @@
+font=FiraCode Nerd Font 12
+background-color=#color_black
+text-color=#color_white
+width=450
+height=150
+border-color=#color_blue
+border-radius=10
+border-size=1
+margin=8
+
