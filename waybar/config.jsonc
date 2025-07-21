@@ -128,7 +128,7 @@
     "format-ethernet": "  {ifname}",
     "format-disconnected": " ",
     "format-disabled": "󰀝 ",
-    "tooltip-format": "{essid}",
+    "tooltip-format": "{essid} ({ipaddr})",
     "max-length": 50
   },
   "mpd": {
