@@ -421,6 +421,13 @@ binds {
     XF86MonBrightnessUp   allow-when-locked=true { spawn "brightnessctl" "set" "10%+"; }
     XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "--min-value=26" "set" "10%-"; }
 
+    XF86AudioPause allow-when-locked=true { spawn "mpc" "pause"; }
+    XF86AudioPlay  allow-when-locked=true { spawn "mpc" "play"; }
+    XF86AudioStop  allow-when-locked=true { spawn "mpc" "stop"; }
+    XF86AudioNext  allow-when-locked=true { spawn "mpc" "next"; }
+    XF86AudioPrev  allow-when-locked=true { spawn "mpc" "prev"; }
+
+    XF86Calculator { spawn "qalculate-gtk"; }
 
     // Open/close the Overview: a zoomed-out view of workspaces and windows.
     // You can also move the mouse into the top-left hot corner,
