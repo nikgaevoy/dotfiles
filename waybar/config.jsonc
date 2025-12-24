@@ -26,6 +26,9 @@
     "tray",
     "custom/right-arrow-dark",
     "custom/right-arrow-light",
+    "idle_inhibitor",
+    "custom/right-arrow-dark",
+    "custom/right-arrow-light",
     "niri/language",
     "custom/right-arrow-dark",
     "custom/right-arrow-light",
@@ -154,10 +157,18 @@
 		  "playing": ""
 	  },
 	  "tooltip-format": "MPD (connected)",
-	  "tooltip-format-disconnected": "MPD (disconnected)"
-    },
-    "tray": {
-      "icon-size": 20
-    },
+	  "tooltip-format-disconnected": "MPD (disconnected)",
     "on-click": "mpc toggle"
+  },
+  "tray": {
+    "icon-size": 20,
+    "spacing": 4
+  },
+  "idle_inhibitor": {
+    "format": "{icon}",
+    "format-icons": {
+        "activated": " ",
+        "deactivated": " "
+    }
+  }
 }

@@ -9,7 +9,6 @@ workspace " "
 // workspace " "
 
 environment {
-    DISPLAY ":0"
     ELECTRON_OZONE_PLATFORM_HINT "auto"
     XDG_CURRENT_DESKTOP "gnome"
 }
@@ -117,6 +116,38 @@ output "eDP-1" {
     // position x=1280 y=0
 }
 
+output "HDMI-A-1" {
+    // Uncomment this line to disable this output.
+    // off
+
+    // Resolution and, optionally, refresh rate of the output.
+    // The format is "<width>x<height>" or "<width>x<height>@<refresh rate>".
+    // If the refresh rate is omitted, niri will pick the highest refresh rate
+    // for the resolution.
+    // If the mode is omitted altogether or is invalid, niri will pick one automatically.
+    // Run `niri msg outputs` while inside a niri instance to list all outputs and their modes.
+    // mode "1920x1080@120.030"
+    mode "1920x1080@60" //240.024"
+
+    // You can use integer or fractional scale, for example use 1.5 for 150% scale.
+    scale 1
+
+    // Transform allows to rotate the output counter-clockwise, valid values are:
+    // normal, 90, 180, 270, flipped, flipped-90, flipped-180 and flipped-270.
+    transform "normal"
+
+    // Position of the output in the global coordinate space.
+    // This affects directional monitor actions like "focus-monitor-left", and cursor movement.
+    // The cursor can only move between directly adjacent outputs.
+    // Output scale and rotation has to be taken into account for positioning:
+    // outputs are sized in logical, or scaled, pixels.
+    // For example, a 3840×2160 output with scale 2.0 will have a logical size of 1920×1080,
+    // so to put another output directly adjacent to it on the right, set its x to 1920.
+    // If the position is unset or results in an overlap, the output is instead placed
+    // automatically.
+    position x=1200 y=0
+}
+
 hotkey-overlay {
     skip-at-startup
 }
@@ -153,6 +184,7 @@ layout {
     // You can also customize the heights that "switch-preset-window-height" (Mod+Shift+R) toggles between.
     preset-window-heights {
         proportion 0.5
+        proportion 1.0
     }
 
     // You can change the default width of the new windows.
@@ -336,6 +368,10 @@ window-rule {
 
 window-rule {
     match app-id="qalculate-gtk"
+    
+    geometry-corner-radius 10 10 0 0
+    clip-to-geometry true
+
     open-floating true
 }
 
@@ -369,15 +405,24 @@ layer-rule {
 
 window-rule {
     match app-id=r#".*org\.telegram\.desktop$"#
+    geometry-corner-radius 10
+    
+    clip-to-geometry true
 
     block-out-from "screencast"
+    open-maximized-to-edges true
 }
 
 // Example: enable rounded corners for all windows.
 // (This example rule is commented out with a "/-" in front.)
 window-rule {
-    geometry-corner-radius 10
+    exclude app-id=r#".*org\.telegram\.desktop$"#
+    exclude app-id="qalculate-gtk"
+
+    geometry-corner-radius 10 10 0 0
     clip-to-geometry true
+    
+    open-maximized-to-edges true
 }
 
 binds {
@@ -577,17 +622,7 @@ binds {
     // Mod+Ctrl+1 { move-window-to-workspace 1; }
 
     // Switches focus between the current and the previous workspace.
-    Mod+Tab { focus-workspace-previous; }
-
-    Alt+Grave repeat=false { spawn "gdbus" "call" "--session" "--dest" "io.github.isaksamsten.Niriswitcher" "--object-path" "/io/github/isaksamsten/Niriswitcher" "--method" "io.github.isaksamsten.Niriswitcher.application" ; }
-    Alt+Shift+Grave repeat=false { spawn "gdbus" "call" "--session" "--dest" "io.github.isaksamsten.Niriswitcher" "--object-path" "/io/github/isaksamsten/Niriswitcher" "--method" "io.github.isaksamsten.Niriswitcher.application" ; }
-    Alt+Tab repeat=false { spawn "gdbus" "call" "--session" "--dest" "io.github.isaksamsten.Niriswitcher" "--object-path" "/io/github/isaksamsten/Niriswitcher" "--method" "io.github.isaksamsten.Niriswitcher.workspace" ; }
-    Alt+Shift+Tab repeat=false { spawn "gdbus" "call" "--session" "--dest" "io.github.isaksamsten.Niriswitcher" "--object-path" "/io/github/isaksamsten/Niriswitcher" "--method" "io.github.isaksamsten.Niriswitcher.workspace" ; }
-
-    // Alt+Grave repeat=false { spawn "niriswitcherctl" "show" "--window"; }
-    // Alt+Shift+Grave repeat=false { spawn "niriswitcherctl" "show" "--window"; }
-    // Alt+Tab repeat=false { spawn "niriswitcherctl" "show" "--workspace"; }
-    // Alt+Shift+Tab repeat=false { spawn "niriswitcherctl" "show" "--workspace"; }
+    // Mod+Tab { focus-workspace-previous; }
 
     // The following binds move the focused window in and out of a column.
     // If the window is alone, they will consume it into the nearby column to the side.
@@ -601,14 +636,14 @@ binds {
     Mod+Period { expel-window-from-column; }
 
     Mod+R { switch-preset-column-width; }
-    // Mod+Shift+R { switch-preset-window-height; }
-    // Mod+Ctrl+R { reset-window-height; }
-    Mod+F { maximize-column; }
-    Mod+Shift+F { fullscreen-window; }
+    Mod+Shift+R { switch-preset-window-height; }
+    Mod+Shift+F { reset-window-height; }
+    Mod+F { maximize-window-to-edges; }
+    Mod+Ctrl+F { fullscreen-window; }
 
     // Expand the focused column to space not taken up by other fully visible columns.
     // Makes the column "fill the rest of the space".
-    Mod+Ctrl+F { expand-column-to-available-width; }
+    // Mod+Ctrl+F { expand-column-to-available-width; }
 
     Mod+C { center-column; }
 
@@ -673,5 +708,36 @@ binds {
 gestures {
     hot-corners {
       off
+    }
+}
+
+recent-windows {
+    // off
+    debounce-ms 750
+
+    open-delay-ms 150
+
+    highlight {
+        active-color "#999999ff"
+        urgent-color "#ff9999ff"
+        padding 30
+        corner-radius 0
+    }
+
+    previews {
+        max-height 480
+        max-scale 0.5
+    }
+
+    binds {
+        Alt+Tab         { next-window     scope="workspace"; }
+        Alt+Shift+Tab   { previous-window scope="workspace"; }
+        Alt+grave       { next-window     scope="workspace" filter="app-id"; }
+        Alt+Shift+grave { previous-window scope="workspace" filter="app-id"; }
+
+        Mod+Tab         { next-window     scope="all"; }
+        Mod+Shift+Tab   { previous-window scope="all"; }
+        Mod+grave       { next-window     scope="all" filter="app-id"; }
+        Mod+Shift+grave { previous-window scope="all" filter="app-id"; }
     }
 }
