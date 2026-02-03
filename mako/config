@@ -7,4 +7,4 @@ border-color=#61AFEF
 border-radius=10
 border-size=1
 margin=8
-
+default-timeout=30000

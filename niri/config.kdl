@@ -145,7 +145,7 @@ output "HDMI-A-1" {
     // so to put another output directly adjacent to it on the right, set its x to 1920.
     // If the position is unset or results in an overlap, the output is instead placed
     // automatically.
-    position x=1200 y=0
+    // position x=0 y=1200
 }
 
 hotkey-overlay {
@@ -466,11 +466,11 @@ binds {
     XF86MonBrightnessUp   allow-when-locked=true { spawn "brightnessctl" "set" "10%+"; }
     XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "--min-value=26" "set" "10%-"; }
 
-    XF86AudioPause allow-when-locked=true { spawn "mpc" "pause"; }
-    XF86AudioPlay  allow-when-locked=true { spawn "mpc" "play"; }
-    XF86AudioStop  allow-when-locked=true { spawn "mpc" "stop"; }
-    XF86AudioNext  allow-when-locked=true { spawn "mpc" "next"; }
-    XF86AudioPrev  allow-when-locked=true { spawn "mpc" "prev"; }
+    // XF86AudioPause allow-when-locked=true { spawn "mpc" "pause"; }
+    // XF86AudioPlay  allow-when-locked=true { spawn "mpc" "play"; }
+    // XF86AudioStop  allow-when-locked=true { spawn "mpc" "stop"; }
+    // XF86AudioNext  allow-when-locked=true { spawn "mpc" "next"; }
+    // XF86AudioPrev  allow-when-locked=true { spawn "mpc" "prev"; }
 
     XF86Calculator { spawn "qalculate-gtk"; }
 
