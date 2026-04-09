@@ -172,7 +172,7 @@ layout {
         // Proportion sets the width as a fraction of the output width, taking gaps into account.
         // For example, you can perfectly fit four windows sized "proportion 0.25" on an output.
         // The default preset widths are 1/3, 1/2 and 2/3 of the output.
-        // proportion 0.33333
+        proportion 0.33333
         proportion 0.5
         proportion 1.0
         // proportion 0.66667
@@ -183,6 +183,7 @@ layout {
 
     // You can also customize the heights that "switch-preset-window-height" (Mod+Shift+R) toggles between.
     preset-window-heights {
+        proportion 0.33333
         proportion 0.5
         proportion 1.0
     }
@@ -438,7 +439,7 @@ binds {
 
     // Mod-Shift-/, which is usually the same as Mod-?,
     // shows a list of important hotkeys.
-    Mod+Shift+Slash { show-hotkey-overlay; }
+    // Mod+Shift+Slash { show-hotkey-overlay; }
 
     // Suggested binds for running programs: terminal, app launcher, screen locker.
     // Mod+T hotkey-overlay-title="Open a Terminal: alacritty" { spawn "alacritty"; }
@@ -446,15 +447,17 @@ binds {
     Mod+Shift+N hotkey-overlay-title="Open Chrome in Incognito" { spawn "google-chrome" "--incognito"; }
     Mod+X hotkey-overlay-title="Open a Calculator: Qalculate!" { spawn "qalculate-gtk"; }
     Mod+Return hotkey-overlay-title="Open a Terminal: kitty" { spawn "kitty"; }
-    Mod+D hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
-    Mod+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
-    Mod+M hotkey-overlay-title="Dismiss Last Notification" { spawn "makoctl" "dismiss"; }
-    Mod+Shift+M hotkey-overlay-title="Dismiss All Notifications" { spawn "makoctl" "dismiss" "-a"; }
-    Mod+Ctrl+M hotkey-overlay-title="Invoke Last Notification" { spawn "makoctl" "invoke"; }
+    // Mod+D hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
+    // Mod+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
+    // Mod+M hotkey-overlay-title="Dismiss Last Notification" { spawn "makoctl" "dismiss"; }
+    // Mod+Shift+M hotkey-overlay-title="Dismiss All Notifications" { spawn "makoctl" "dismiss" "-a"; }
+    // Mod+Ctrl+M hotkey-overlay-title="Invoke Last Notification" { spawn "makoctl" "invoke"; }
 
     // You can also use a shell. Do this if you need pipes, multiple commands, etc.
     // Note: the entire command goes as a single argument in the end.
     // Mod+T { spawn "bash" "-c" "notify-send hello && exec alacritty"; }
+
+    Mod+Z hotkey-overlay-title="Set dynamic cast window" { set-dynamic-cast-window; }
 
     // Example volume keys mappings for PipeWire & WirePlumber.
     // The allow-when-locked=true property makes them work even when the session is locked.
@@ -464,7 +467,7 @@ binds {
     XF86AudioMicMute     allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
 
     XF86MonBrightnessUp   allow-when-locked=true { spawn "brightnessctl" "set" "10%+"; }
-    XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "--min-value=26" "set" "10%-"; }
+    XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "--min-value=10" "set" "10%-"; }
 
     // XF86AudioPause allow-when-locked=true { spawn "mpc" "pause"; }
     // XF86AudioPlay  allow-when-locked=true { spawn "mpc" "play"; }
@@ -639,7 +642,7 @@ binds {
     Mod+Shift+R { switch-preset-window-height; }
     Mod+Shift+F { reset-window-height; }
     Mod+F { maximize-window-to-edges; }
-    Mod+Ctrl+F { fullscreen-window; }
+    Mod+Ctrl+F { toggle-windowed-fullscreen; }
 
     // Expand the focused column to space not taken up by other fully visible columns.
     // Makes the column "fill the rest of the space".
@@ -666,8 +669,8 @@ binds {
     Mod+Shift+Equal { set-window-height "+10%"; }
 
     // Move the focused window between the floating and the tiling layout.
-    Mod+V       { toggle-window-floating; }
-    Mod+Shift+V { switch-focus-between-floating-and-tiling; }
+    Mod+T       { toggle-window-floating; }
+    Mod+Shift+T { switch-focus-between-floating-and-tiling; }
 
     // Toggle tabbed column display mode.
     // Windows in this column will appear as vertical tabs,
@@ -698,7 +701,6 @@ binds {
 
     // The quit action will show a confirmation dialog to avoid accidental exits.
     Mod+Shift+E { quit; }
-    Ctrl+Alt+Delete { quit; }
 
     // Powers off the monitors. To turn them back on, do any input like
     // moving the mouse or pressing any other key.
@@ -741,3 +743,6 @@ recent-windows {
         Mod+Shift+grave { previous-window scope="all" filter="app-id"; }
     }
 }
+include "dms/binds.kdl"
+
+include "dms/windowrules.kdl"
